@@ -1,0 +1,3 @@
+rootProject.name = "MaiTungTM UI"
+include ':app'
+include ':MaiTungTMUI'
