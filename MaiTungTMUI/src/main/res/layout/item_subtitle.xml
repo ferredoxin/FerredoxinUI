@@ -12,7 +12,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
         android:text="Title"
-        android:textColor="@color/firstTextColor"
+        android:textColor="@color/FirstTextColor"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

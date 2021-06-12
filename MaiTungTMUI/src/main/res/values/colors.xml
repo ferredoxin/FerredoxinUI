@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-
-    <color name="firstTextColor">#202124</color>
-    <color name="secondTextColor">#3C4043</color>
-    <color name="firstBackground">#FFFFFF</color>
-    <color name="secondBackground">#FAFAFA</color>
-    <color name="firstIconTint">#5F6368</color>
+    <color name="FirstTextColor">#FF202124</color>
+    <color name="SecondTextColor">#FF3C4043</color>
+    <color name="ThirdTextColor">#FF5F6368</color>
+    <color name="WhiteTextColor">#FFFFFFFF</color>
+    <color name="BackgroundColor">#FFFFFFFF</color>
+    <color name="WhiteBackgroundColor">#FFFFFFFF</color>
+    <color name="DeleteBackgroundColor">#FFD93025</color>
+    <color name="ItemBackgroundColor">#FFFAFAFA</color>
+    <color name="ItemRightIconColor">#FF5F6368</color>
+    <color name="ItemRightTextColor">#FF5F6368</color>
+    <color name="ThemeColor">#FF4285F4</color>
+    <color name="RippleColor">#143C4043</color>
+    <color name="LineColor">#FFD6DDE7</color>
+    <color name="SwitchLineColor">#FFD6DDE7</color>
+    <color name="SwitchOnColor">#FF4285F4</color>
+    <color name="SwitchOffColor">#FFC0CBD9</color>
+    <color name="SwitchDisableColor">#FFDDDDDD</color>
+    <color name="NullColor">#00000000</color>
+    <color name="IconClockColor">#994285F4</color>
 </resources>

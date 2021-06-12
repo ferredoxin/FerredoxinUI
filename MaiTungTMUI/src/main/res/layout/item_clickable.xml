@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="TextView"
-        android:textColor="@color/secondTextColor"
+        android:textColor="@color/SecondTextColor"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,5 +26,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_chevron_right_24px"
-        app:tint="@color/firstIconTint" />
+        app:tint="@color/ItemRightIconColor" />
 </androidx.constraintlayout.widget.ConstraintLayout>
