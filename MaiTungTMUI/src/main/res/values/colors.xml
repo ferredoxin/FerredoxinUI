@@ -12,4 +12,5 @@
     <color name="secondTextColor">#3C4043</color>
     <color name="firstBackground">#FFFFFF</color>
     <color name="secondBackground">#FAFAFA</color>
+    <color name="firstIconTint">#5F6368</color>
 </resources>
