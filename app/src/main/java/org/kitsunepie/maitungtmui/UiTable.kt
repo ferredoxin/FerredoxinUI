@@ -39,6 +39,14 @@ object UiTable : UiScreen {
         },
         uiCategory {
             name = "更多"
+            contains = linkedMapOf(
+                uiClickableItem {
+                    title = "鸽子画饼"
+                },
+                uiClickableItem {
+                    title = "关于"
+                }
+            )
         }
     )
 }
