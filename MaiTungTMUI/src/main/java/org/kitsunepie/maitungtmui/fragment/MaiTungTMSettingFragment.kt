@@ -7,10 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
-import org.kitsunepie.maitungtmui.base.UiCategory
-import org.kitsunepie.maitungtmui.base.UiGroup
-import org.kitsunepie.maitungtmui.base.UiPreference
-import org.kitsunepie.maitungtmui.base.UiScreen
+import org.kitsunepie.maitungtmui.activity.MaiTungTMStyleActivity
+import org.kitsunepie.maitungtmui.base.*
 import org.kitsunepie.maitungtmui.item.Category
 import org.kitsunepie.maitungtmui.item.ClickableItem
 import org.kitsunepie.maitungtmui.item.Subtitle
@@ -60,11 +58,38 @@ class MaiTungTMSettingFragment : Fragment() {
                 }
                 uiDescription is UiPreference -> {
                     when (uiDescription) {
+                        is UiChangeablePreference<*> -> {
+                            viewGroup.addView(ClickableItem(requireContext()).apply {
+                                title = uiDescription.title
+                                summary = uiDescription.summary
+                                uiDescription.value.observe(viewLifecycleOwner) {
+                                    value = it?.toString()
+                                }
+                            })
+                        }
                         is UiPreference -> {
                             viewGroup.addView(ClickableItem(requireContext()).apply {
-                                setTitle(uiDescription.title)
-                                setOnClickListener {
-                                    uiDescription.onClickListener(requireContext())
+                                title = uiDescription.title
+                                summary = uiDescription.summary
+                                when (uiDescription.onClickListener) {
+                                    is ClickToNewSetting -> {
+                                        setOnClickListener {
+                                            (requireActivity() as MaiTungTMStyleActivity).addFragment(
+                                                MaiTungTMSettingFragment().setUiScreen(
+                                                    (uiDescription.onClickListener as ClickToNewSetting).uiScreen
+                                                )
+                                            )
+                                        }
+                                    }
+                                    is ClickToNewPages -> {
+                                        setOnClickListener {
+                                            (requireActivity() as MaiTungTMStyleActivity).addFragment(
+                                                ViewPagerFragment().setViewMap(
+                                                    (uiDescription.onClickListener as ClickToNewPages).viewMap
+                                                )
+                                            )
+                                        }
+                                    }
                                 }
                             })
                         }

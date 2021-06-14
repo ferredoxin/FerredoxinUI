@@ -1,6 +1,7 @@
 package org.kitsunepie.maitungtmui.base
 
 import android.content.Context
+import androidx.lifecycle.MutableLiveData
 
 class UiCategoryFactory : UiCategory {
     override lateinit var name: String
@@ -17,4 +18,11 @@ class UiClickableItemFactory : UiPreference {
     override lateinit var title: String
     override var summary: String? = null
     override var onClickListener: (Context) -> Boolean = { true }
+}
+
+class UiChangeableItemFactory<T> : UiChangeablePreference<T> {
+    override lateinit var title: String
+    override var summary: String? = null
+    override var onClickListener: (Context) -> Boolean = { true }
+    override val value: MutableLiveData<T?> = MutableLiveData()
 }

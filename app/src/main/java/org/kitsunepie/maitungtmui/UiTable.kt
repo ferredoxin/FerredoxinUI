@@ -1,9 +1,7 @@
 package org.kitsunepie.maitungtmui
 
-import org.kitsunepie.maitungtmui.base.UiMap
-import org.kitsunepie.maitungtmui.base.UiScreen
-import org.kitsunepie.maitungtmui.base.uiCategory
-import org.kitsunepie.maitungtmui.base.uiClickableItem
+import org.kitsunepie.maitungtmui.base.*
+import org.kitsunepie.maitungtmui.fragment.DemoViewPagerFragment
 
 object UiTable : UiScreen {
     override var name: String = "QNotified"
@@ -14,9 +12,11 @@ object UiTable : UiScreen {
             contains = linkedMapOf(
                 uiClickableItem {
                     title = "净化功能"
+                    onClickListener = ClickToNewPages(DemoViewPagerFragment)
                 },
                 uiClickableItem {
                     title = "增强功能"
+                    onClickListener = ClickToNewSetting(DemoViewPagerFragment[0].second)
                 },
                 uiClickableItem {
                     title = "辅助功能"

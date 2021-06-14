@@ -34,7 +34,14 @@ abstract class MaiTungTMStyleActivity : AppCompatActivity() {
     }
 
     fun addFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.container, fragment)
+        supportFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_right_in,
+                R.anim.slide_left_out,
+                R.anim.slide_left_in,
+                R.anim.slide_right_out
+            )
+            .replace(R.id.container, fragment)
             .addToBackStack(fragment.toString()).commit()
     }
 
