@@ -16,10 +16,12 @@ val DemoViewPagerFragment: ViewMap = listOf(
                     uiClickableItem {
                         title = "不可用"
                         summary = "暂不开放"
+                        enable = false
                     },
                     uiClickableItem {
                         title = "不可用 - 打开二级界面"
                         summary = "暂不开放"
+                        enable = false
                     }
                 )
             },

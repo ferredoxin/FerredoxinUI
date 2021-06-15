@@ -17,12 +17,14 @@ class UiScreenFactory : UiScreen {
 class UiClickableItemFactory : UiPreference {
     override lateinit var title: String
     override var summary: String? = null
+    override var enable: Boolean = true
     override var onClickListener: (Context) -> Boolean = { true }
 }
 
 class UiChangeableItemFactory<T> : UiChangeablePreference<T> {
     override lateinit var title: String
     override var summary: String? = null
+    override var enable: Boolean = true
     override var onClickListener: (Context) -> Boolean = { true }
     override val value: MutableLiveData<T?> = MutableLiveData()
 }

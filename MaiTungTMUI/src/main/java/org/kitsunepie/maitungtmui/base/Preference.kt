@@ -28,6 +28,7 @@ import androidx.lifecycle.MutableLiveData
 sealed interface UiPreference : UiDescription {
     var title: String
     var summary: String?
+    var enable: Boolean
     var onClickListener: (Context) -> Boolean
 }
 

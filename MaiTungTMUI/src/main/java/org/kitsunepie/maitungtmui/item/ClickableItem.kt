@@ -5,6 +5,8 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
+import androidx.core.content.ContextCompat
+import org.kitsunepie.maitungtmui.R
 import org.kitsunepie.maitungtmui.databinding.ItemClickableBinding
 
 class ClickableItem @JvmOverloads constructor(
@@ -41,6 +43,20 @@ class ClickableItem @JvmOverloads constructor(
         get() = binding.value.text.toString()
         set(value) {
             binding.value.text = value
+        }
+
+    var enable: Boolean = true
+        set(value) {
+            if (value) {
+                isClickable = true
+                binding.textView2.setTextColor(ContextCompat.getColor(context,R.color.SecondTextColor))
+                binding.textView2.setTextColor(ContextCompat.getColor(context,R.color.SecondTextColor))
+            } else {
+                isClickable = false
+                binding.textView2.setTextColor(ContextCompat.getColor(context,R.color.RippleColor))
+                binding.summary.setTextColor(ContextCompat.getColor(context,R.color.RippleColor))
+            }
+            field = value
         }
 
 }

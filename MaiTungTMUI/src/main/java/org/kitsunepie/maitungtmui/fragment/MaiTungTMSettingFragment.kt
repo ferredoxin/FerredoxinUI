@@ -62,6 +62,7 @@ class MaiTungTMSettingFragment : Fragment() {
                             viewGroup.addView(ClickableItem(requireContext()).apply {
                                 title = uiDescription.title
                                 summary = uiDescription.summary
+                                enable = uiDescription.enable
                                 uiDescription.value.observe(viewLifecycleOwner) {
                                     value = it?.toString()
                                 }
@@ -71,6 +72,7 @@ class MaiTungTMSettingFragment : Fragment() {
                             viewGroup.addView(ClickableItem(requireContext()).apply {
                                 title = uiDescription.title
                                 summary = uiDescription.summary
+                                enable = uiDescription.enable
                                 when (uiDescription.onClickListener) {
                                     is ClickToNewSetting -> {
                                         setOnClickListener {
