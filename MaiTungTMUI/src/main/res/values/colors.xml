@@ -4,6 +4,7 @@
     <color name="SecondTextColor">#FF3C4043</color>
     <color name="ThirdTextColor">#FF5F6368</color>
     <color name="WhiteTextColor">#FFFFFFFF</color>
+    <color name="DisableTextColor">#613C4043</color>
     <color name="BackgroundColor">#FFFFFFFF</color>
     <color name="WhiteBackgroundColor">#FFFFFFFF</color>
     <color name="DeleteBackgroundColor">#FFD93025</color>

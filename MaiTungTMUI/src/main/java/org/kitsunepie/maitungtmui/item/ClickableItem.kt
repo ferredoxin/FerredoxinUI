@@ -53,8 +53,8 @@ class ClickableItem @JvmOverloads constructor(
                 binding.textView2.setTextColor(ContextCompat.getColor(context,R.color.SecondTextColor))
             } else {
                 isClickable = false
-                binding.textView2.setTextColor(ContextCompat.getColor(context,R.color.RippleColor))
-                binding.summary.setTextColor(ContextCompat.getColor(context,R.color.RippleColor))
+                binding.textView2.setTextColor(ContextCompat.getColor(context,R.color.DisableTextColor))
+                binding.summary.setTextColor(ContextCompat.getColor(context,R.color.DisableTextColor))
             }
             field = value
         }
