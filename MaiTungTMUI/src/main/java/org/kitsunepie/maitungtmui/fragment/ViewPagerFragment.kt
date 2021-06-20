@@ -21,7 +21,11 @@ class ViewPagerFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
+        if (!::viewMap.isInitialized) {
+            requireActivity().recreate()
+            return null
+        }
         binding = FragmentViewPagerBinding.inflate(layoutInflater, container, false)
         val adapter = Adapter()
         binding.viewPager2.adapter = adapter

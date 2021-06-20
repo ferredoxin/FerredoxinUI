@@ -1,9 +1,6 @@
 package org.kitsunepie.maitungtmui.fragment
 
-import org.kitsunepie.maitungtmui.base.uiCategory
-import org.kitsunepie.maitungtmui.base.uiChangeableItem
-import org.kitsunepie.maitungtmui.base.uiClickableItem
-import org.kitsunepie.maitungtmui.base.uiScreen
+import org.kitsunepie.maitungtmui.base.*
 
 val DemoViewPagerFragment: ViewMap = listOf(
 
@@ -28,22 +25,28 @@ val DemoViewPagerFragment: ViewMap = listOf(
             uiCategory {
                 name = "示例2"
                 contains = linkedMapOf(
-                    uiChangeableItem<String> {
+                    uiSwitchItem {
                         title = "打开开关"
-                        value.value = "虽然这不是一个开关"
+                        value.value = true
+                    },
+                    uiSwitchItem {
+                        title = "关闭开关"
+                        value.value = false
                     }
                 )
             },
             uiCategory {
                 name = "示例3"
                 contains = linkedMapOf(
-                    uiClickableItem {
+                    uiSwitchItem {
                         title = "不可用"
                         summary = "暂不开放"
+                        enable = false
                     },
                     uiClickableItem {
                         title = "不可用 - 打开二级界面"
                         summary = "暂不开放"
+                        enable = false
                     }
                 )
             },

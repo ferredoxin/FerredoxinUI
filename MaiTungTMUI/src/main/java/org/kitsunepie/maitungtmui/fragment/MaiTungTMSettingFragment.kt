@@ -1,7 +1,6 @@
 package org.kitsunepie.maitungtmui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import org.kitsunepie.maitungtmui.base.*
 import org.kitsunepie.maitungtmui.item.Category
 import org.kitsunepie.maitungtmui.item.ClickableItem
 import org.kitsunepie.maitungtmui.item.Subtitle
+import org.kitsunepie.maitungtmui.item.SwitchItem
 
 class MaiTungTMSettingFragment : Fragment() {
 
@@ -22,6 +22,10 @@ class MaiTungTMSettingFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        if (!::uiScreen.isInitialized) {
+            requireActivity().recreate()
+            return null
+        }
         val linearLayout = LinearLayout(activity).apply {
             orientation = LinearLayout.VERTICAL
             layoutParams = ViewGroup.LayoutParams(
@@ -39,12 +43,9 @@ class MaiTungTMSettingFragment : Fragment() {
     }
 
     private fun addViewInUiGroup(uiGroup: UiGroup, viewGroup: ViewGroup) {
-        Log.d(
-            this::class.java.simpleName,
-            "Adding: " + uiGroup.name + " = " + uiGroup.contains.toString()
-        )
+        //Log.d(this::class.java.simpleName, "Adding: " + uiGroup.name + " = " + uiGroup.contains.toString())
         for (uiDescription in uiGroup.contains.values) {
-            Log.d(this::class.java.simpleName, "Adding: $uiDescription")
+            //Log.d(this::class.java.simpleName, "Adding: $uiDescription")
             when {
                 uiDescription is UiCategory -> {
                     viewGroup.addView(Subtitle(requireContext()).apply {
@@ -58,6 +59,19 @@ class MaiTungTMSettingFragment : Fragment() {
                 }
                 uiDescription is UiPreference -> {
                     when (uiDescription) {
+                        is UiSwitchPreference -> {
+                            viewGroup.addView(SwitchItem(requireContext()).apply {
+                                title = uiDescription.title
+                                summary = uiDescription.summary
+                                setOnClickListener {
+                                    uiDescription.onClickListener.invoke(requireContext())
+                                }
+                                uiDescription.value.observe(viewLifecycleOwner) {
+                                    value = it
+                                }
+                                enable = uiDescription.enable
+                            })
+                        }
                         is UiChangeablePreference<*> -> {
                             viewGroup.addView(ClickableItem(requireContext()).apply {
                                 title = uiDescription.title
@@ -72,7 +86,6 @@ class MaiTungTMSettingFragment : Fragment() {
                             viewGroup.addView(ClickableItem(requireContext()).apply {
                                 title = uiDescription.title
                                 summary = uiDescription.summary
-                                enable = uiDescription.enable
                                 when (uiDescription.onClickListener) {
                                     is ClickToNewSetting -> {
                                         setOnClickListener {
@@ -93,6 +106,7 @@ class MaiTungTMSettingFragment : Fragment() {
                                         }
                                     }
                                 }
+                                enable = uiDescription.enable
                             })
                         }
                     }

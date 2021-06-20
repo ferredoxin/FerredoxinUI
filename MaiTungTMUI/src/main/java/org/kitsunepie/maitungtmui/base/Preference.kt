@@ -36,6 +36,6 @@ sealed interface UiChangeablePreference<T> : UiPreference {
     val value: MutableLiveData<T?>
 }
 
-interface UiSwitchPreference : UiChangeablePreference<Boolean> {
-    var valid: Boolean
+interface UiSwitchPreference : UiPreference {
+    val value: MutableLiveData<Boolean>
 }

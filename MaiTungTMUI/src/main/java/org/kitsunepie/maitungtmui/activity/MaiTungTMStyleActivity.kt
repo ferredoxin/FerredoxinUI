@@ -53,4 +53,9 @@ abstract class MaiTungTMStyleActivity : AppCompatActivity() {
         }
     }
 
+    override fun recreate() {
+        finish()
+        startActivity(intent)
+    }
+
 }
