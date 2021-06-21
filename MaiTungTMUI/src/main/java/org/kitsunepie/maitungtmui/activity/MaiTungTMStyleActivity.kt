@@ -10,7 +10,11 @@ import org.kitsunepie.maitungtmui.databinding.ActivityMaitungTmStyleBinding
 
 abstract class MaiTungTMStyleActivity<T> : AppCompatActivity() where T : Fragment, T : TitleAble {
 
-    open val showNavigationIcon: Boolean = true
+    open var showNavigationIcon: Boolean = true
+        set(value) {
+            binding.imageView3.visibility = if (value) View.VISIBLE else View.GONE
+            field = value
+        }
     abstract val fragment: T
 
     private lateinit var binding: ActivityMaitungTmStyleBinding
@@ -18,14 +22,12 @@ abstract class MaiTungTMStyleActivity<T> : AppCompatActivity() where T : Fragmen
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMaitungTmStyleBinding.inflate(layoutInflater)
-        if (!showNavigationIcon) {
-            binding.imageView3.visibility = View.GONE
-        }
         binding.imageView3.setOnClickListener {
             onBackPressed()
         }
         setContentView(binding.root)
         addFragment(fragment)
+        showNavigationIcon = false
     }
 
     var title: String?
@@ -46,6 +48,7 @@ abstract class MaiTungTMStyleActivity<T> : AppCompatActivity() where T : Fragmen
             )
             .replace(R.id.container, fragment)
             .addToBackStack(fragment.title).commit()
+        showNavigationIcon = true
         this.title = fragment.title
     }
 
@@ -53,6 +56,7 @@ abstract class MaiTungTMStyleActivity<T> : AppCompatActivity() where T : Fragmen
         if (supportFragmentManager.backStackEntryCount <= 1) {
             finish()
         } else {
+            showNavigationIcon = supportFragmentManager.backStackEntryCount != 2
             supportFragmentManager.popBackStack()
             this.title = supportFragmentManager.getBackStackEntryAt(0).name
         }

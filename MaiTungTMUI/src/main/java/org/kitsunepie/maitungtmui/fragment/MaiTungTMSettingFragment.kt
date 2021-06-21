@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import org.kitsunepie.maitungtmui.activity.MaiTungTMStyleActivity
 import org.kitsunepie.maitungtmui.base.*
+import org.kitsunepie.maitungtmui.databinding.FragmentSettingsBinding
 import org.kitsunepie.maitungtmui.item.Category
 import org.kitsunepie.maitungtmui.item.ClickableItem
 import org.kitsunepie.maitungtmui.item.Subtitle
@@ -17,6 +17,7 @@ class MaiTungTMSettingFragment : Fragment(), TitleAble {
 
     private lateinit var uiScreen: UiScreen
     override lateinit var title: String
+    private lateinit var binding: FragmentSettingsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,15 +28,9 @@ class MaiTungTMSettingFragment : Fragment(), TitleAble {
             requireActivity().recreate()
             return null
         }
-        val linearLayout = LinearLayout(activity).apply {
-            orientation = LinearLayout.VERTICAL
-            layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-        }
-        addViewInUiGroup(uiScreen, linearLayout)
-        return linearLayout;
+        binding = FragmentSettingsBinding.inflate(layoutInflater, container, false)
+        addViewInUiGroup(uiScreen, binding.linearContainer)
+        return binding.root;
     }
 
     fun setUiScreen(uiScreen: UiScreen): MaiTungTMSettingFragment {
