@@ -7,15 +7,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import org.kitsunepie.maitungtmui.base.TitleAble
 import org.kitsunepie.maitungtmui.base.UiScreen
 import org.kitsunepie.maitungtmui.databinding.FragmentViewPagerBinding
 
 typealias ViewMap = List<Pair<String, UiScreen>>
 
-class ViewPagerFragment : Fragment() {
+class ViewPagerFragment : Fragment(), TitleAble {
 
     private lateinit var binding: FragmentViewPagerBinding
     private lateinit var viewMap: ViewMap
+    override lateinit var title: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +35,11 @@ class ViewPagerFragment : Fragment() {
             tab.text = viewMap[position].first
         }.attach()
         return binding.root
+    }
+
+    fun setTitle(title: String): ViewPagerFragment {
+        this.title = title
+        return this
     }
 
     fun setViewMap(viewMap: ViewMap): ViewPagerFragment {

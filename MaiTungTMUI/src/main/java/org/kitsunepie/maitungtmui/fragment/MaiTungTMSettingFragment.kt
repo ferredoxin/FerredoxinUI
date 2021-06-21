@@ -13,9 +13,10 @@ import org.kitsunepie.maitungtmui.item.ClickableItem
 import org.kitsunepie.maitungtmui.item.Subtitle
 import org.kitsunepie.maitungtmui.item.SwitchItem
 
-class MaiTungTMSettingFragment : Fragment() {
+class MaiTungTMSettingFragment : Fragment(), TitleAble {
 
     private lateinit var uiScreen: UiScreen
+    override lateinit var title: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,6 +40,7 @@ class MaiTungTMSettingFragment : Fragment() {
 
     fun setUiScreen(uiScreen: UiScreen): MaiTungTMSettingFragment {
         this.uiScreen = uiScreen
+        this.title = uiScreen.name
         return this
     }
 
@@ -89,7 +91,7 @@ class MaiTungTMSettingFragment : Fragment() {
                                 when (uiDescription.onClickListener) {
                                     is ClickToNewSetting -> {
                                         setOnClickListener {
-                                            (requireActivity() as MaiTungTMStyleActivity).addFragment(
+                                            (requireActivity() as MaiTungTMStyleActivity<*>).addFragment(
                                                 MaiTungTMSettingFragment().setUiScreen(
                                                     (uiDescription.onClickListener as ClickToNewSetting).uiScreen
                                                 )
@@ -98,10 +100,10 @@ class MaiTungTMSettingFragment : Fragment() {
                                     }
                                     is ClickToNewPages -> {
                                         setOnClickListener {
-                                            (requireActivity() as MaiTungTMStyleActivity).addFragment(
+                                            (requireActivity() as MaiTungTMStyleActivity<*>).addFragment(
                                                 ViewPagerFragment().setViewMap(
                                                     (uiDescription.onClickListener as ClickToNewPages).viewMap
-                                                )
+                                                ).setTitle(uiDescription.title)
                                             )
                                         }
                                     }
