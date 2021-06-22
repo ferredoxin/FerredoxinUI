@@ -42,7 +42,7 @@ class ViewPagerFragment : Fragment(), TitleAble {
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val textView = TextView(requireContext())
-                textView.textSize = 20F
+                textView.textSize = 18F
                 textView.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
                 val params: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -63,7 +63,7 @@ class ViewPagerFragment : Fragment(), TitleAble {
         })
         val firstTab = binding.tabLayout.getTabAt(0)
         val textView = TextView(requireContext())
-        textView.textSize = 20F
+        textView.textSize = 18F
         textView.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
         val params: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT,
