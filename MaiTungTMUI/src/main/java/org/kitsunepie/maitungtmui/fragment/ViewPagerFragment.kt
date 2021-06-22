@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import org.kitsunepie.maitungtmui.R
 import org.kitsunepie.maitungtmui.base.TitleAble
 import org.kitsunepie.maitungtmui.base.UiScreen
 import org.kitsunepie.maitungtmui.databinding.FragmentViewPagerBinding
@@ -41,15 +43,7 @@ class ViewPagerFragment : Fragment(), TitleAble {
         }.attach()
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                val textView = TextView(requireContext())
-                textView.textSize = 18F
-                textView.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
-                val params: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
-                params.gravity = Gravity.CENTER
-                textView.layoutParams = params
+                val textView = getTextViewForTab()
                 textView.text = tab?.text
                 tab?.customView = textView
             }
@@ -62,18 +56,24 @@ class ViewPagerFragment : Fragment(), TitleAble {
 
         })
         val firstTab = binding.tabLayout.getTabAt(0)
+        val textView = getTextViewForTab()
+        textView.text = firstTab?.text
+        firstTab?.customView = textView
+        return binding.root
+    }
+
+    private fun getTextViewForTab(): TextView {
         val textView = TextView(requireContext())
         textView.textSize = 18F
         textView.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+        textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.ThemeColor))
         val params: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
         params.gravity = Gravity.CENTER
         textView.layoutParams = params
-        textView.text = firstTab?.text
-        firstTab?.customView = textView
-        return binding.root
+        return textView
     }
 
     fun setTitle(title: String): ViewPagerFragment {

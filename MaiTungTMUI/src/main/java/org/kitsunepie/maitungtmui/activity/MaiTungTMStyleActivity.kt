@@ -1,5 +1,6 @@
 package org.kitsunepie.maitungtmui.activity
 
+import android.animation.LayoutTransition
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +23,7 @@ abstract class MaiTungTMStyleActivity<T> : AppCompatActivity() where T : Fragmen
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMaitungTmStyleBinding.inflate(layoutInflater)
+        binding.root.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
         binding.imageView3.setOnClickListener {
             onBackPressed()
         }
