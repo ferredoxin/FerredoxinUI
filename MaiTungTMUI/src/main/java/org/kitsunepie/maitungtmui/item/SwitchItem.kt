@@ -1,15 +1,11 @@
 package org.kitsunepie.maitungtmui.item
 
 import android.content.Context
-import android.graphics.drawable.AnimatedVectorDrawable
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
-import androidx.vectordrawable.graphics.drawable.Animatable2Compat
-import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import org.kitsunepie.maitungtmui.R
 import org.kitsunepie.maitungtmui.databinding.ItemSwitchBinding
 
@@ -22,8 +18,19 @@ class SwitchItem @JvmOverloads constructor(
     private val binding: ItemSwitchBinding =
         ItemSwitchBinding.inflate(LayoutInflater.from(context), this, true)
 
+    var checked: Boolean
+        get() {
+            return binding.switch1.checked
+        }
+        set(value) {
+            binding.switch1.checked = value
+        }
+
     init {
         isClickable = true
+        setOnClickListener {
+            checked = !checked
+        }
     }
 
     var title: String
@@ -43,61 +50,7 @@ class SwitchItem @JvmOverloads constructor(
             }
         }
 
-    var value: Boolean? = null
-        set(value) {
-            if (value == null) {
-                this.enable = false
-                return
-            }
-            if (this.value == null) {
-                if (value) {
-                    binding.imageView2.setImageResource(R.drawable.ic_toggle_on_24px)
-                } else {
-                    binding.imageView2.setImageResource(R.drawable.ic_toggle_off_24px)
-                }
-                field = value
-                return
-            }
-            if (this.value == value) return
-            if (value) {
-                isClickable = false
-                binding.imageView2.setImageResource(R.drawable.switch_off_to_on)
-                val animate = binding.imageView2.drawable
-                AnimatedVectorDrawableCompat.clearAnimationCallbacks(animate)
-                AnimatedVectorDrawableCompat.registerAnimationCallback(
-                    animate,
-                    object : Animatable2Compat.AnimationCallback() {
-                        override fun onAnimationEnd(drawable: Drawable?) {
-                            AnimatedVectorDrawableCompat.clearAnimationCallbacks(animate)
-                            binding.imageView2.setImageResource(R.drawable.ic_toggle_on_24px)
-                            isClickable = true
-                        }
-                    })
-                if (animate is AnimatedVectorDrawable) {
-                    animate.start()
-                }
-            } else {
-                isClickable = false
-                binding.imageView2.setImageResource(R.drawable.switch_on_to_off)
-                val animate = binding.imageView2.drawable
-                AnimatedVectorDrawableCompat.clearAnimationCallbacks(animate)
-                AnimatedVectorDrawableCompat.registerAnimationCallback(
-                    animate,
-                    object : Animatable2Compat.AnimationCallback() {
-                        override fun onAnimationEnd(drawable: Drawable?) {
-                            AnimatedVectorDrawableCompat.clearAnimationCallbacks(animate)
-                            binding.imageView2.setImageResource(R.drawable.ic_toggle_off_24px)
-                            isClickable = true
-                        }
-                    })
-                if (animate is AnimatedVectorDrawable) {
-                    animate.start()
-                }
-            }
-            field = value
-        }
-
-    var enable: Boolean = true
+    var enable: Boolean = binding.switch1.isEnabled
         set(value) {
             if (value) {
                 isClickable = true
@@ -113,11 +66,6 @@ class SwitchItem @JvmOverloads constructor(
                         R.color.SecondTextColor
                     )
                 )
-                if (value) {
-                    binding.imageView2.setImageResource(R.drawable.ic_toggle_on_24px)
-                } else {
-                    binding.imageView2.setImageResource(R.drawable.ic_toggle_off_24px)
-                }
             } else {
                 isClickable = false
                 binding.textView2.setTextColor(
@@ -132,9 +80,17 @@ class SwitchItem @JvmOverloads constructor(
                         R.color.DisableTextColor
                     )
                 )
-                binding.imageView2.setImageResource(R.drawable.ic_toggle_disable_24px)
             }
+            binding.switch1.isEnabled = value
             field = value
+        }
+
+    var onValueChangedListener: ((Boolean) -> Unit)?
+        get() {
+            return binding.switch1.onValueChangedListener
+        }
+        set(value) {
+            binding.switch1.onValueChangedListener = value
         }
 
 }

@@ -29,7 +29,11 @@ class MaiTungTMSettingFragment : Fragment(), TitleAble {
             return null
         }
         binding = FragmentSettingsBinding.inflate(layoutInflater, container, false)
-        addViewInUiGroup(uiScreen, binding.linearContainer)
+        Thread {
+            requireActivity().runOnUiThread {
+                addViewInUiGroup(uiScreen, binding.linearContainer)
+            }
+        }.start()
         return binding.root;
     }
 
@@ -60,13 +64,13 @@ class MaiTungTMSettingFragment : Fragment(), TitleAble {
                             viewGroup.addView(SwitchItem(requireContext()).apply {
                                 title = uiDescription.title
                                 summary = uiDescription.summary
-                                setOnClickListener {
-                                    uiDescription.onClickListener.invoke(requireContext())
-                                }
-                                uiDescription.value.observe(viewLifecycleOwner) {
-                                    value = it
+                                onValueChangedListener = {
+                                    uiDescription.value.value = it
                                 }
                                 enable = uiDescription.enable
+                                uiDescription.value.observe(viewLifecycleOwner) {
+                                    checked = it
+                                }
                             })
                         }
                         is UiChangeablePreference<*> -> {

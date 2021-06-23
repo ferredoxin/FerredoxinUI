@@ -53,9 +53,11 @@ val DemoViewPagerFragment: ViewMap = listOf(
             uiCategory {
                 name = "示例4"
                 contains = linkedMapOf(
-                    uiClickableItem {
+                    uiSwitchItem {
                         title = "不可用"
                         summary = "暂不开放"
+                        enable = false
+                        value.value = true
                     },
                     uiClickableItem {
                         title = "不可用 - 打开二级界面"
