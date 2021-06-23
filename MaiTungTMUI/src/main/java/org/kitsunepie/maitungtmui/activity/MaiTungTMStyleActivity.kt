@@ -1,9 +1,9 @@
 package org.kitsunepie.maitungtmui.activity
 
-import android.animation.LayoutTransition
 import android.os.Bundle
-import android.view.View
+import android.transition.TransitionManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import org.kitsunepie.maitungtmui.R
 import org.kitsunepie.maitungtmui.base.TitleAble
@@ -13,7 +13,8 @@ abstract class MaiTungTMStyleActivity<T> : AppCompatActivity() where T : Fragmen
 
     open var showNavigationIcon: Boolean = true
         set(value) {
-            binding.imageView3.visibility = if (value) View.VISIBLE else View.GONE
+            TransitionManager.beginDelayedTransition(binding.constraintLayout3)
+            binding.imageView3.isVisible = value
             field = value
         }
     abstract val fragment: T
@@ -23,7 +24,6 @@ abstract class MaiTungTMStyleActivity<T> : AppCompatActivity() where T : Fragmen
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMaitungTmStyleBinding.inflate(layoutInflater)
-        binding.root.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
         binding.imageView3.setOnClickListener {
             onBackPressed()
         }
