@@ -1,25 +1,23 @@
 package org.kitsunepie.maitungtmui.activity
 
-import android.graphics.Rect
+import android.animation.ObjectAnimator
+import android.graphics.Typeface
 import android.os.Bundle
-import android.transition.ChangeBounds
-import android.transition.Fade
-import android.transition.TransitionManager
-import android.transition.TransitionSet
-import android.transition.TransitionValues
-import android.view.View
+import android.util.TypedValue
+import android.view.animation.AnimationUtils
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import org.kitsunepie.maitungtmui.R
 import org.kitsunepie.maitungtmui.base.TitleAble
 import org.kitsunepie.maitungtmui.databinding.ActivityMaitungTmStyleBinding
-import kotlin.properties.Delegates
 
 abstract class MaiTungTMStyleActivity<T> : AppCompatActivity() where T : Fragment, T : TitleAble {
 
-    private val transition = TransitionSet().apply {
+    /*private val transition = TransitionSet().apply {
         ordering = TransitionSet.ORDERING_SEQUENTIAL
-        addTransition(Fade(Fade.OUT))
+        //addTransition(Fade(Fade.OUT))
         addTransition(object : ChangeBounds() {
             var width by Delegates.notNull<Int>()
             override fun captureStartValues(transitionValues: TransitionValues) {
@@ -39,14 +37,32 @@ abstract class MaiTungTMStyleActivity<T> : AppCompatActivity() where T : Fragmen
             }
         })
         addTransition(Fade(Fade.IN))
+    }*/
+
+    private val translation: Float by lazy {
+        TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40F, resources.displayMetrics)
     }
 
     open var showNavigationIcon: Boolean = true
         set(value) {
-            TransitionManager.beginDelayedTransition(binding.toolbar, transition)
-            binding.imageView3.visibility = if (value) View.VISIBLE else View.GONE
+            if (value == field) return
+            if (value) {
+                ObjectAnimator.ofFloat(binding.constraintLayout3, "translationX", 0F).apply {
+                    duration = 400
+                    start()
+                }
+            } else {
+                ObjectAnimator.ofFloat(binding.constraintLayout3, "translationX", -translation)
+                    .apply {
+                        duration = 400
+                        start()
+                    }
+            }
+            //TransitionManager.beginDelayedTransition(binding.toolbar, transition)
+            //binding.imageView3.visibility = if (value) View.VISIBLE else View.GONE
             field = value
         }
+
     abstract val fragment: T
 
     private lateinit var binding: ActivityMaitungTmStyleBinding
@@ -57,30 +73,39 @@ abstract class MaiTungTMStyleActivity<T> : AppCompatActivity() where T : Fragmen
         binding.imageView3.setOnClickListener {
             onBackPressed()
         }
+        binding.title.setFactory {
+            val textView = TextView(this)
+            textView.setTextColor(ContextCompat.getColor(this, R.color.FirstTextColor))
+            textView.textSize = 20F
+            textView.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            textView
+        }
         setContentView(binding.root)
         addFragment(fragment)
         showNavigationIcon = false
     }
 
-    var title: String?
-        get() {
-            return binding.title.text.toString()
-        }
+    var title: String? = null
         set(value) {
-            binding.title.text = value
+            binding.title.setText(value)
+            field = value
         }
 
     fun <T> addFragment(fragment: T) where T : Fragment, T : TitleAble {
         supportFragmentManager.beginTransaction()
             .setCustomAnimations(
-                R.anim.slide_right_in,
-                R.anim.slide_left_out,
                 R.anim.slide_left_in,
-                R.anim.slide_right_out
+                R.anim.slide_right_out,
+                R.anim.slide_right_in,
+                R.anim.slide_left_out
             )
             .replace(R.id.container, fragment)
             .addToBackStack(fragment.title).commit()
         showNavigationIcon = true
+        binding.title.inAnimation =
+            AnimationUtils.loadAnimation(this, R.anim.slide_left_in_no_alpha)
+        binding.title.outAnimation =
+            AnimationUtils.loadAnimation(this, R.anim.slide_right_out_no_alpha)
         this.title = fragment.title
     }
 
@@ -90,6 +115,10 @@ abstract class MaiTungTMStyleActivity<T> : AppCompatActivity() where T : Fragmen
         } else {
             showNavigationIcon = supportFragmentManager.backStackEntryCount != 2
             supportFragmentManager.popBackStack()
+            binding.title.inAnimation =
+                AnimationUtils.loadAnimation(this, R.anim.slide_right_in_no_alpha)
+            binding.title.outAnimation =
+                AnimationUtils.loadAnimation(this, R.anim.slide_left_out_no_alpha)
             this.title = supportFragmentManager.getBackStackEntryAt(0).name
         }
     }
