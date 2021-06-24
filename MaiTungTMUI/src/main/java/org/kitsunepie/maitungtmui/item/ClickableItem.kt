@@ -51,8 +51,13 @@ class ClickableItem @JvmOverloads constructor(
         set(value) {
             if (value) {
                 isClickable = true
-                binding.textView2.setTextColor(ContextCompat.getColor(context,R.color.SecondTextColor))
                 binding.textView2.setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.SecondTextColor
+                    )
+                )
+                binding.summary.setTextColor(
                     ContextCompat.getColor(
                         context,
                         R.color.SecondTextColor

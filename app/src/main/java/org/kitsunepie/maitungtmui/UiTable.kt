@@ -1,6 +1,7 @@
 package org.kitsunepie.maitungtmui
 
 import org.kitsunepie.maitungtmui.base.*
+import org.kitsunepie.maitungtmui.fragment.DemoFragment
 import org.kitsunepie.maitungtmui.fragment.DemoViewPagerFragment
 
 object UiTable : UiScreen {
@@ -20,6 +21,7 @@ object UiTable : UiScreen {
                 },
                 uiClickableItem {
                     title = "辅助功能"
+                    onClickListener = ClickToNewSetting(DemoFragment)
                 },
                 uiClickableItem {
                     title = "其他功能"

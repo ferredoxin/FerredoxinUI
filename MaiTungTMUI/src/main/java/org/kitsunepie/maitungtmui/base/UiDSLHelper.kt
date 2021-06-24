@@ -33,6 +33,12 @@ fun uiSwitchItem(init: UiSwitchItemFactory.() -> Unit): Pair<String, UiSwitchPre
     return Pair(uiSwitchItemFactory.title, uiSwitchItemFactory)
 }
 
+fun uiClickableSwitchItem(init: UiClickableSwitchFactory.() -> Unit): Pair<String, UiClickableSwitchPreference> {
+    val uiClickableSwitchFactory = UiClickableSwitchFactory()
+    uiClickableSwitchFactory.init()
+    return Pair(uiClickableSwitchFactory.title, uiClickableSwitchFactory)
+}
+
 sealed class ClickListenerAgent : (Context) -> Boolean {
     override fun invoke(p1: Context): Boolean {
         throw IllegalAccessException("Invalid operation")

@@ -14,25 +14,17 @@ class UiScreenFactory : UiScreen {
     override var contains: UiMap = linkedMapOf()
 }
 
-class UiClickableItemFactory : UiPreference {
+open class UiClickableItemFactory : UiPreference {
     override lateinit var title: String
     override var summary: String? = null
     override var enable: Boolean = true
     override var onClickListener: (Context) -> Boolean = { true }
 }
 
-class UiChangeableItemFactory<T> : UiChangeablePreference<T> {
-    override lateinit var title: String
-    override var summary: String? = null
-    override var enable: Boolean = true
-    override var onClickListener: (Context) -> Boolean = { true }
-    override val value: MutableLiveData<T?> = MutableLiveData()
+open class UiChangeableItemFactory<T> : UiChangeablePreference<T>, UiClickableItemFactory() {
+    override val value: MutableLiveData<T> = MutableLiveData()
 }
 
-class UiSwitchItemFactory : UiSwitchPreference {
-    override lateinit var title: String
-    override var summary: String? = null
-    override var enable: Boolean = true
-    override var onClickListener: (Context) -> Boolean = { true }
-    override val value: MutableLiveData<Boolean> = MutableLiveData()
-}
+open class UiSwitchItemFactory : UiSwitchPreference, UiChangeableItemFactory<Boolean>()
+
+class UiClickableSwitchFactory : UiSwitchItemFactory(), UiClickableSwitchPreference

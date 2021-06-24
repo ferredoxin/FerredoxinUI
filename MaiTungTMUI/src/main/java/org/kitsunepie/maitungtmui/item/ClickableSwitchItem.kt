@@ -7,16 +7,17 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import org.kitsunepie.maitungtmui.R
-import org.kitsunepie.maitungtmui.databinding.ItemSwitchBinding
+import org.kitsunepie.maitungtmui.databinding.ItemClickableSwitchBinding
 
-class SwitchItem @JvmOverloads constructor(
+class ClickableSwitchItem @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private val binding: ItemSwitchBinding =
-        ItemSwitchBinding.inflate(LayoutInflater.from(context), this, true)
+    private val binding: ItemClickableSwitchBinding = ItemClickableSwitchBinding.inflate(
+        LayoutInflater.from(context), this, true
+    )
 
     var checked: Boolean
         get() {
@@ -25,13 +26,6 @@ class SwitchItem @JvmOverloads constructor(
         set(value) {
             binding.switch1.checked = value
         }
-
-    init {
-        isClickable = true
-        setOnClickListener {
-            checked = !checked
-        }
-    }
 
     var title: String
         get() = binding.textView2.text.toString()
@@ -52,8 +46,10 @@ class SwitchItem @JvmOverloads constructor(
 
     var enable: Boolean = binding.switch1.isEnabled
         set(value) {
+            binding.constraintLayout.isClickable = value
+            binding.constraintLayout.isFocusable = value
+            binding.constraintLayout.isEnabled = value
             if (value) {
-                isClickable = true
                 binding.textView2.setTextColor(
                     ContextCompat.getColor(
                         context,
@@ -67,7 +63,6 @@ class SwitchItem @JvmOverloads constructor(
                     )
                 )
             } else {
-                isClickable = false
                 binding.textView2.setTextColor(
                     ContextCompat.getColor(
                         context,
@@ -84,6 +79,10 @@ class SwitchItem @JvmOverloads constructor(
             binding.switch1.isEnabled = value
             field = value
         }
+
+    override fun setOnClickListener(l: OnClickListener?) {
+        binding.constraintLayout.setOnClickListener(l)
+    }
 
     var onValueChangedListener: ((Boolean) -> Unit)?
         get() {

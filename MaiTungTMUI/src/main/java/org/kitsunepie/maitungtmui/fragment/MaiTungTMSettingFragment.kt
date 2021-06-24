@@ -1,5 +1,6 @@
 package org.kitsunepie.maitungtmui.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +9,7 @@ import androidx.fragment.app.Fragment
 import org.kitsunepie.maitungtmui.activity.MaiTungTMStyleActivity
 import org.kitsunepie.maitungtmui.base.*
 import org.kitsunepie.maitungtmui.databinding.FragmentSettingsBinding
-import org.kitsunepie.maitungtmui.item.Category
-import org.kitsunepie.maitungtmui.item.ClickableItem
-import org.kitsunepie.maitungtmui.item.Subtitle
-import org.kitsunepie.maitungtmui.item.SwitchItem
+import org.kitsunepie.maitungtmui.item.*
 
 class MaiTungTMSettingFragment : Fragment(), TitleAble {
 
@@ -60,6 +58,25 @@ class MaiTungTMSettingFragment : Fragment(), TitleAble {
                 }
                 uiDescription is UiPreference -> {
                     when (uiDescription) {
+                        is UiClickableSwitchPreference -> {
+                            viewGroup.addView(ClickableSwitchItem(requireContext()).apply {
+                                title = uiDescription.title
+                                summary = uiDescription.summary
+                                onValueChangedListener = {
+                                    uiDescription.value.value = it
+                                }
+                                enable = uiDescription.enable
+                                uiDescription.value.observe(viewLifecycleOwner) {
+                                    checked = it
+                                }
+                                setOnClickListener(
+                                    getOnClickListener(
+                                        uiDescription.onClickListener,
+                                        uiDescription.title
+                                    )
+                                )
+                            })
+                        }
                         is UiSwitchPreference -> {
                             viewGroup.addView(SwitchItem(requireContext()).apply {
                                 title = uiDescription.title
@@ -87,30 +104,48 @@ class MaiTungTMSettingFragment : Fragment(), TitleAble {
                             viewGroup.addView(ClickableItem(requireContext()).apply {
                                 title = uiDescription.title
                                 summary = uiDescription.summary
-                                when (uiDescription.onClickListener) {
-                                    is ClickToNewSetting -> {
-                                        setOnClickListener {
-                                            (requireActivity() as MaiTungTMStyleActivity<*>).addFragment(
-                                                MaiTungTMSettingFragment().setUiScreen(
-                                                    (uiDescription.onClickListener as ClickToNewSetting).uiScreen
-                                                )
-                                            )
-                                        }
-                                    }
-                                    is ClickToNewPages -> {
-                                        setOnClickListener {
-                                            (requireActivity() as MaiTungTMStyleActivity<*>).addFragment(
-                                                ViewPagerFragment().setViewMap(
-                                                    (uiDescription.onClickListener as ClickToNewPages).viewMap
-                                                ).setTitle(uiDescription.title)
-                                            )
-                                        }
-                                    }
-                                }
+                                setOnClickListener(
+                                    getOnClickListener(
+                                        uiDescription.onClickListener,
+                                        uiDescription.title
+                                    )
+                                )
                                 enable = uiDescription.enable
                             })
                         }
                     }
+                }
+            }
+        }
+    }
+
+    private fun getOnClickListener(
+        listener: (Context) -> Boolean,
+        title: String
+    ): View.OnClickListener {
+        return when (listener) {
+            is ClickToNewSetting -> {
+                View.OnClickListener {
+                    (requireActivity() as MaiTungTMStyleActivity<*>).addFragment(
+                        MaiTungTMSettingFragment().setUiScreen(
+                            listener.uiScreen
+                        )
+                    )
+                }
+            }
+            is ClickToNewPages -> {
+                View.OnClickListener {
+                    (requireActivity() as MaiTungTMStyleActivity<*>).addFragment(
+                        ViewPagerFragment().setViewMap(
+                            listener.viewMap
+                        ).setTitle(title)
+                    )
+                }
+
+            }
+            else -> {
+                View.OnClickListener {
+                    listener.invoke(requireContext())
                 }
             }
         }

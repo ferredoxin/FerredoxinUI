@@ -15,30 +15,6 @@ import org.kitsunepie.maitungtmui.databinding.ActivityMaitungTmStyleBinding
 
 abstract class MaiTungTMStyleActivity<T> : AppCompatActivity() where T : Fragment, T : TitleAble {
 
-    /*private val transition = TransitionSet().apply {
-        ordering = TransitionSet.ORDERING_SEQUENTIAL
-        //addTransition(Fade(Fade.OUT))
-        addTransition(object : ChangeBounds() {
-            var width by Delegates.notNull<Int>()
-            override fun captureStartValues(transitionValues: TransitionValues) {
-                super.captureStartValues(transitionValues)
-                if (transitionValues.view == binding.title) {
-                    val rect = transitionValues.values["android:changeBounds:bounds"] as Rect
-                    width = rect.right - rect.left
-                }
-            }
-
-            override fun captureEndValues(transitionValues: TransitionValues) {
-                super.captureEndValues(transitionValues)
-                if (transitionValues.view == binding.title) {
-                    val rect = transitionValues.values["android:changeBounds:bounds"] as Rect
-                    rect.right = rect.left + width
-                }
-            }
-        })
-        addTransition(Fade(Fade.IN))
-    }*/
-
     private val translation: Float by lazy {
         TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40F, resources.displayMetrics)
     }
@@ -58,8 +34,6 @@ abstract class MaiTungTMStyleActivity<T> : AppCompatActivity() where T : Fragmen
                         start()
                     }
             }
-            //TransitionManager.beginDelayedTransition(binding.toolbar, transition)
-            //binding.imageView3.visibility = if (value) View.VISIBLE else View.GONE
             field = value
         }
 

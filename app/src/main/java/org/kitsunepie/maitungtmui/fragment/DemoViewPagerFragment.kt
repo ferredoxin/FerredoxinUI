@@ -82,15 +82,6 @@ val DemoViewPagerFragment: ViewMap = listOf(
                         summary = "暂不开放"
                     }
                 )
-            },
-            uiCategory {
-                name = "示例2"
-                contains = linkedMapOf(
-                    uiChangeableItem<String> {
-                        title = "打开开关"
-                        value.value = "虽然这不是一个开关"
-                    }
-                )
             }
         )
     },
