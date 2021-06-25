@@ -1,8 +1,8 @@
-package org.kitsunepie.maitungtmui
+package org.kitsunepie.maitungtmui.demo
 
 import org.kitsunepie.maitungtmui.base.*
-import org.kitsunepie.maitungtmui.fragment.DemoFragment
-import org.kitsunepie.maitungtmui.fragment.DemoViewPagerFragment
+import org.kitsunepie.maitungtmui.demo.fragment.DemoFragment
+import org.kitsunepie.maitungtmui.demo.fragment.DemoViewPagerFragment
 
 object UiTable : UiScreen {
     override var name: String = "QNotified"

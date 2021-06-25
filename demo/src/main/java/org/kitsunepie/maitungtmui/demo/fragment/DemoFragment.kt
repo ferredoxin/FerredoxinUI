@@ -1,4 +1,4 @@
-package org.kitsunepie.maitungtmui.fragment
+package org.kitsunepie.maitungtmui.demo.fragment
 
 import org.kitsunepie.maitungtmui.base.ClickToNewSetting
 import org.kitsunepie.maitungtmui.base.UiScreen

@@ -1,6 +1,7 @@
-package org.kitsunepie.maitungtmui.fragment
+package org.kitsunepie.maitungtmui.demo.fragment
 
 import org.kitsunepie.maitungtmui.base.*
+import org.kitsunepie.maitungtmui.fragment.ViewMap
 
 val DemoViewPagerFragment: ViewMap = listOf(
 
