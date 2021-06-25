@@ -3,7 +3,7 @@ package org.kitsunepie.maitungtmui.base
 import android.content.Context
 import org.kitsunepie.maitungtmui.fragment.ViewMap
 
-fun uiCategory(init: UiCategory.() -> Unit): Pair<String, UiCategory> {
+fun uiCategory(init: UiCategoryFactory.() -> Unit): Pair<String, UiCategory> {
     val uiCategory = UiCategoryFactory()
     uiCategory.init()
     return Pair(uiCategory.name, uiCategory)

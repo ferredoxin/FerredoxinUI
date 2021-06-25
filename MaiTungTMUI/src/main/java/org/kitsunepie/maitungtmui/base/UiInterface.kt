@@ -5,12 +5,16 @@ typealias UiMap = MutableMap<String, UiDescription>
 sealed interface UiDescription
 
 sealed interface UiGroup : UiDescription {
-    var name: String
-    var contains: UiMap
+    val name: String
+    val contains: UiMap
 }
 
 interface UiScreen : UiGroup {
-    var summary: String?
+    val summary: String?
+        get() = null
 }
 
-interface UiCategory : UiGroup
+interface UiCategory : UiGroup {
+    val noTitle: Boolean
+        get() = false
+}

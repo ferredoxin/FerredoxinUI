@@ -32,7 +32,7 @@ class MaiTungTMSettingFragment : Fragment(), TitleAble {
                 addViewInUiGroup(uiScreen, binding.linearContainer)
             }
         }.start()
-        return binding.root;
+        return binding.root
     }
 
     fun setUiScreen(uiScreen: UiScreen): MaiTungTMSettingFragment {
@@ -47,9 +47,11 @@ class MaiTungTMSettingFragment : Fragment(), TitleAble {
             //Log.d(this::class.java.simpleName, "Adding: $uiDescription")
             when {
                 uiDescription is UiCategory -> {
-                    viewGroup.addView(Subtitle(requireContext()).apply {
-                        setTitle(uiDescription.name)
-                    })
+                    if (!uiDescription.noTitle) {
+                        viewGroup.addView(Subtitle(requireContext()).apply {
+                            setTitle(uiDescription.name)
+                        })
+                    }
                     if (uiDescription.contains.isNotEmpty()) {
                         val category = Category(requireContext())
                         viewGroup.addView(category)

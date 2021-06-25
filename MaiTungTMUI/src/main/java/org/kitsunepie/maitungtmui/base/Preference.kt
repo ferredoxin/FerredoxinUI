@@ -26,16 +26,20 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 
 sealed interface UiPreference : UiDescription {
-    var title: String
-    var summary: String?
+    val title: String
+    val summary: String?
+        get() = null
     var enable: Boolean
-    var onClickListener: (Context) -> Boolean
+    val onClickListener: (Context) -> Boolean
 }
 
 sealed interface UiChangeablePreference<T> : UiPreference {
     val value: MutableLiveData<T>
 }
 
-interface UiSwitchPreference : UiChangeablePreference<Boolean>
+interface UiSwitchPreference : UiChangeablePreference<Boolean> {
+    override val onClickListener: (Context) -> Boolean
+        get() = { true }
+}
 
 interface UiClickableSwitchPreference : UiSwitchPreference

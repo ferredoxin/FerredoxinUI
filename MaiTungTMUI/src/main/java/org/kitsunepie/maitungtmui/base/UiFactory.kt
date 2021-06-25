@@ -4,8 +4,9 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 
 class UiCategoryFactory : UiCategory {
-    override lateinit var name: String
+    override var name: String = ""
     override var contains: UiMap = linkedMapOf()
+    override var noTitle: Boolean = false
 }
 
 class UiScreenFactory : UiScreen {
@@ -25,6 +26,8 @@ open class UiChangeableItemFactory<T> : UiChangeablePreference<T>, UiClickableIt
     override val value: MutableLiveData<T> = MutableLiveData()
 }
 
-open class UiSwitchItemFactory : UiSwitchPreference, UiChangeableItemFactory<Boolean>()
+open class UiSwitchItemFactory : UiSwitchPreference, UiChangeableItemFactory<Boolean>() {
+    override var onClickListener: (Context) -> Boolean = { true }
+}
 
 class UiClickableSwitchFactory : UiSwitchItemFactory(), UiClickableSwitchPreference
