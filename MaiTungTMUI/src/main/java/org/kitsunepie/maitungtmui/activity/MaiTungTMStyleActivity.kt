@@ -88,12 +88,12 @@ abstract class MaiTungTMStyleActivity<T> : AppCompatActivity() where T : Fragmen
             finish()
         } else {
             showNavigationIcon = supportFragmentManager.backStackEntryCount != 2
+            this.title = supportFragmentManager.getBackStackEntryAt(0).name
             supportFragmentManager.popBackStack()
             binding.title.inAnimation =
                 AnimationUtils.loadAnimation(this, R.anim.slide_right_in_no_alpha)
             binding.title.outAnimation =
                 AnimationUtils.loadAnimation(this, R.anim.slide_left_out_no_alpha)
-            this.title = supportFragmentManager.getBackStackEntryAt(0).name
         }
     }
 

@@ -6,6 +6,9 @@ import org.kitsunepie.maitungtmui.fragment.ViewMap
 fun uiCategory(init: UiCategoryFactory.() -> Unit): Pair<String, UiCategory> {
     val uiCategory = UiCategoryFactory()
     uiCategory.init()
+    if (uiCategory.noTitle && uiCategory.name.isBlank()) {
+        uiCategory.name = uiCategory.toString()
+    }
     return Pair(uiCategory.name, uiCategory)
 }
 
