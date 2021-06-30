@@ -18,6 +18,7 @@
     <color name="SwitchOnColor">#FF82A8E7</color>
     <color name="SwitchOffColor">#FF5F6368</color>
     <color name="SwitchDisableColor">#FF404144</color>
+    <color name="SwitchDisableONColor">#6182A8E7</color>
     <color name="NullColor">#00000000</color>
     <color name="IconClockColor">#9982A8E7</color>
 </resources>
