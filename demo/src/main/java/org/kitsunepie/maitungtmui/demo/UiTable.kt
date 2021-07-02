@@ -25,6 +25,9 @@ object UiTable : UiScreen {
                 },
                 uiClickableItem {
                     title = "其他功能"
+                    onClickListener = ClickToNewSetting(uiScreen {
+                        name = "其他功能"
+                    }.second)
                 }
             )
         },

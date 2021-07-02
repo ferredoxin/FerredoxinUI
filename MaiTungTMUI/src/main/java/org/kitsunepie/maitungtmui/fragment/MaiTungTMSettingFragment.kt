@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import org.kitsunepie.maitungtmui.activity.MaiTungTMStyleActivity
 import org.kitsunepie.maitungtmui.base.*
 import org.kitsunepie.maitungtmui.databinding.FragmentSettingsBinding
@@ -27,11 +29,13 @@ class MaiTungTMSettingFragment : Fragment(), TitleAble {
             return null
         }
         binding = FragmentSettingsBinding.inflate(layoutInflater, container, false)
-        Thread {
-            requireActivity().runOnUiThread {
+        if (uiScreen.contains.isEmpty()) {
+            binding.emptyView.visibility = View.VISIBLE
+        } else {
+            viewLifecycleOwner.lifecycleScope.launch {
                 addViewInUiGroup(uiScreen, binding.linearContainer)
             }
-        }.start()
+        }
         return binding.root
     }
 
