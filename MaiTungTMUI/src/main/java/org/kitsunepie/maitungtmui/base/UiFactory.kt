@@ -1,6 +1,6 @@
 package org.kitsunepie.maitungtmui.base
 
-import android.content.Context
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 
 class UiCategoryFactory : UiCategory {
@@ -19,7 +19,7 @@ open class UiClickableItemFactory : UiPreference {
     override lateinit var title: String
     override var summary: String? = null
     override var enable: Boolean = true
-    override var onClickListener: (Context) -> Boolean = { true }
+    override var onClickListener: (FragmentActivity) -> Boolean = { true }
 }
 
 open class UiChangeableItemFactory<T> : UiChangeablePreference<T>, UiClickableItemFactory() {
@@ -27,7 +27,7 @@ open class UiChangeableItemFactory<T> : UiChangeablePreference<T>, UiClickableIt
 }
 
 open class UiSwitchItemFactory : UiSwitchPreference, UiChangeableItemFactory<Boolean>() {
-    override var onClickListener: (Context) -> Boolean = { true }
+    override var onClickListener: (FragmentActivity) -> Boolean = { true }
 }
 
 class UiClickableSwitchFactory : UiSwitchItemFactory(), UiClickableSwitchPreference

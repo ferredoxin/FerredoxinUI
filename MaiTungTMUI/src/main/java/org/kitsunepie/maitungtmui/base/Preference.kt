@@ -22,7 +22,7 @@
 
 package org.kitsunepie.maitungtmui.base
 
-import android.content.Context
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 
 sealed interface UiPreference : UiDescription {
@@ -30,7 +30,7 @@ sealed interface UiPreference : UiDescription {
     val summary: String?
         get() = null
     var enable: Boolean
-    val onClickListener: (Context) -> Boolean
+    val onClickListener: (FragmentActivity) -> Boolean
 }
 
 sealed interface UiChangeablePreference<T> : UiPreference {
@@ -38,7 +38,7 @@ sealed interface UiChangeablePreference<T> : UiPreference {
 }
 
 interface UiSwitchPreference : UiChangeablePreference<Boolean> {
-    override val onClickListener: (Context) -> Boolean
+    override val onClickListener: (FragmentActivity) -> Boolean
         get() = { true }
 }
 

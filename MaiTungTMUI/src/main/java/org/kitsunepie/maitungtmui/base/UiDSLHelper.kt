@@ -1,6 +1,6 @@
 package org.kitsunepie.maitungtmui.base
 
-import android.content.Context
+import androidx.fragment.app.FragmentActivity
 import org.kitsunepie.maitungtmui.fragment.ViewMap
 
 fun uiCategory(init: UiCategoryFactory.() -> Unit): Pair<String, UiCategory> {
@@ -42,8 +42,8 @@ fun uiClickableSwitchItem(init: UiClickableSwitchFactory.() -> Unit): Pair<Strin
     return Pair(uiClickableSwitchFactory.title, uiClickableSwitchFactory)
 }
 
-sealed class ClickListenerAgent : (Context) -> Boolean {
-    override fun invoke(p1: Context): Boolean {
+sealed class ClickListenerAgent : (FragmentActivity) -> Boolean {
+    override fun invoke(p1: FragmentActivity): Boolean {
         throw IllegalAccessException("Invalid operation")
     }
 }

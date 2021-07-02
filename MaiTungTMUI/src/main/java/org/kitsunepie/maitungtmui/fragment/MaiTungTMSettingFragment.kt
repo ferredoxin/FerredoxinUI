@@ -1,11 +1,11 @@
 package org.kitsunepie.maitungtmui.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.kitsunepie.maitungtmui.activity.MaiTungTMStyleActivity
@@ -126,7 +126,7 @@ class MaiTungTMSettingFragment : Fragment(), TitleAble {
     }
 
     private fun getOnClickListener(
-        listener: (Context) -> Boolean,
+        listener: (FragmentActivity) -> Boolean,
         title: String
     ): View.OnClickListener {
         return when (listener) {
@@ -151,7 +151,7 @@ class MaiTungTMSettingFragment : Fragment(), TitleAble {
             }
             else -> {
                 View.OnClickListener {
-                    listener.invoke(requireContext())
+                    listener.invoke(requireActivity())
                 }
             }
         }
