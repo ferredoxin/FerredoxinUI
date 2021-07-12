@@ -6,8 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.launch
+import kotlin.concurrent.thread
 import org.kitsunepie.maitungtmui.activity.MaiTungTMStyleActivity
 import org.kitsunepie.maitungtmui.base.*
 import org.kitsunepie.maitungtmui.databinding.FragmentSettingsBinding
@@ -32,8 +31,10 @@ class MaiTungTMSettingFragment : Fragment(), TitleAble {
         if (uiScreen.contains.isEmpty()) {
             binding.emptyView.visibility = View.VISIBLE
         } else {
-            viewLifecycleOwner.lifecycleScope.launch {
-                addViewInUiGroup(uiScreen, binding.linearContainer)
+            thread {
+                requireActivity().runOnUiThread {
+                    addViewInUiGroup(uiScreen, binding.linearContainer)
+                }
             }
         }
         return binding.root
