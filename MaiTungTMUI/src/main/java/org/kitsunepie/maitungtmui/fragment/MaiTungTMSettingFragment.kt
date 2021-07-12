@@ -6,17 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.viewbinding.ViewBinding
 import kotlin.concurrent.thread
 import org.kitsunepie.maitungtmui.activity.MaiTungTMStyleActivity
 import org.kitsunepie.maitungtmui.base.*
 import org.kitsunepie.maitungtmui.databinding.FragmentSettingsBinding
+import org.kitsunepie.maitungtmui.databinding.FragmentEmptyBinding
 import org.kitsunepie.maitungtmui.item.*
 
 class MaiTungTMSettingFragment : Fragment(), TitleAble {
 
     private lateinit var uiScreen: UiScreen
     override lateinit var title: String
-    private lateinit var binding: FragmentSettingsBinding
+    private lateinit var binding: ViewBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,17 +29,19 @@ class MaiTungTMSettingFragment : Fragment(), TitleAble {
             requireActivity().recreate()
             return null
         }
-        binding = FragmentSettingsBinding.inflate(layoutInflater, container, false)
+
         if (uiScreen.contains.isEmpty()) {
-            binding.emptyView.visibility = View.VISIBLE
+            binding = FragmentEmptyBinding.inflate(layoutInflater, container, false)
+            return binding.root
         } else {
+            binding = FragmentSettingsBinding.inflate(layoutInflater, container, false)
             thread {
                 requireActivity().runOnUiThread {
-                    addViewInUiGroup(uiScreen, binding.linearContainer)
+                    addViewInUiGroup(uiScreen, (binding as FragmentSettingsBinding).linearContainer)
                 }
             }
+            return binding.root
         }
-        return binding.root
     }
 
     fun setUiScreen(uiScreen: UiScreen): MaiTungTMSettingFragment {
