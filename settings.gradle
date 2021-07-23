@@ -1,3 +1,3 @@
-rootProject.name = "MaiTungTM UI"
+rootProject.name = "Ferredoxin UI"
 include ':demo'
-include ':MaiTungTMUI'
+include ':FerredoxinUILib'

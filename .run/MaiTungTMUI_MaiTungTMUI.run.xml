@@ -1,9 +1,9 @@
 <component name="ProjectRunConfigurationManager">
-    <configuration default="false" name="MaiTungTMUI:MaiTungTMUI" type="GradleRunConfiguration"
-        factoryName="Gradle" nameIsGenerated="true">
+    <configuration default="false" name="FerredoxinUI" type="GradleRunConfiguration"
+        factoryName="Gradle">
         <ExternalSystemSettings>
             <option name="executionName" />
-            <option name="externalProjectPath" value="$PROJECT_DIR$/MaiTungTMUI" />
+            <option name="externalProjectPath" value="$PROJECT_DIR$/FerredoxinUILib" />
             <option name="externalSystemIdString" value="GRADLE" />
             <option name="scriptParameters" value="" />
             <option name="taskDescriptions">
@@ -17,7 +17,9 @@
             </option>
             <option name="vmOptions" value="" />
         </ExternalSystemSettings>
-        <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+        <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+        <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+        <DebugAllEnabled>false</DebugAllEnabled>
         <method v="2" />
     </configuration>
 </component>
