@@ -1,5 +1,7 @@
 package org.ferredoxin.ferredoxin_ui.base
 
+import android.app.Activity
+import android.content.Context
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -22,7 +24,7 @@ open class UiClickableItemFactory : UiPreference {
     override lateinit var title: String
     override var summary: String? = null
     override var valid: Boolean = true
-    override var onClickListener: (FragmentActivity) -> Boolean = { true }
+    override var onClickListener: (Activity) -> Boolean = { true }
 }
 
 open class UiChangeableItemFactory<T> : UiChangeablePreference<T>, UiClickableItemFactory() {
@@ -30,26 +32,32 @@ open class UiChangeableItemFactory<T> : UiChangeablePreference<T>, UiClickableIt
 }
 
 open class UiSwitchItemFactory : UiSwitchPreference, UiChangeableItemFactory<Boolean>() {
-    override var onClickListener: (FragmentActivity) -> Boolean = { true }
+    override var onClickListener: (Activity) -> Boolean = { true }
 }
 
 class UiClickableSwitchFactory : UiSwitchItemFactory(), UiClickableSwitchPreference
 
-class MaterialAlertDialogPreferenceFactory : UiChangeablePreference<String> {
+interface ContextWrapper {
+    val contextWrapper: (Context) -> Context
+}
+
+class MaterialAlertDialogPreferenceFactory : UiChangeablePreference<String>, ContextWrapper {
     override lateinit var title: String
     override var summary: String? = null
     override var valid: Boolean = true
-    override var onClickListener: (FragmentActivity) -> Boolean = { true }
+    override var onClickListener: (Activity) -> Boolean = { true }
     override val value: MutableLiveData<String> = MutableLiveData()
+    override var contextWrapper: (Context) -> Context = { it }
     var materialAlertDialogBuilder: MaterialAlertDialogBuilder.() -> Unit = {}
 }
 
-class EditPreferenceFactory : UiChangeablePreference<String> {
+class EditPreferenceFactory : UiChangeablePreference<String>, ContextWrapper {
     override val value: MutableLiveData<String> = MutableLiveData()
     override lateinit var title: String
     override var summary: String? = null
     override var valid: Boolean = true
-    override lateinit var onClickListener: (FragmentActivity) -> Boolean
+    override lateinit var onClickListener: (Activity) -> Boolean
     var inputLayout: TextInputLayout.() -> Unit = {}
+    override var contextWrapper: (Context) -> Context = { it }
     var textInputEditText: TextInputEditText.() -> Unit = {}
 }

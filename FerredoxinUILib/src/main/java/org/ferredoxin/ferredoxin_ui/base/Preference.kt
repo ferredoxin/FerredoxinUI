@@ -22,6 +22,7 @@
 
 package org.ferredoxin.ferredoxin_ui.base
 
+import android.app.Activity
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 
@@ -30,7 +31,7 @@ sealed interface UiPreference : UiDescription {
     val summary: String?
         get() = null
     var valid: Boolean
-    val onClickListener: (FragmentActivity) -> Boolean
+    val onClickListener: (Activity) -> Boolean
 }
 
 sealed interface UiChangeablePreference<T> : UiPreference {
@@ -38,7 +39,7 @@ sealed interface UiChangeablePreference<T> : UiPreference {
 }
 
 interface UiSwitchPreference : UiChangeablePreference<Boolean> {
-    override val onClickListener: (FragmentActivity) -> Boolean
+    override val onClickListener: (Activity) -> Boolean
         get() = { true }
 }
 

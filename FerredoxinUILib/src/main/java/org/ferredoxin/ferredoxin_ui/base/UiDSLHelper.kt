@@ -51,15 +51,15 @@ fun uiClickableSwitchItem(init: UiClickableSwitchFactory.() -> Unit): Pair<Strin
     return Pair(uiClickableSwitchFactory.title, uiClickableSwitchFactory)
 }
 
-class ClickToActivity(val activity: Class<out Activity>) : (FragmentActivity) -> Boolean {
-    override fun invoke(p1: FragmentActivity): Boolean {
+class ClickToActivity(val activity: Class<out Activity>) : (Activity) -> Boolean {
+    override fun invoke(p1: Activity): Boolean {
         p1.startActivity(Intent(p1, activity))
         return true
     }
 }
 
-sealed class ClickListenerAgent : (FragmentActivity) -> Boolean {
-    override fun invoke(p1: FragmentActivity): Boolean {
+sealed class ClickListenerAgent : (Activity) -> Boolean {
+    override fun invoke(p1: Activity): Boolean {
         throw IllegalAccessException("Invalid operation")
     }
 }
@@ -72,7 +72,8 @@ fun uiDialogPreference(init: MaterialAlertDialogPreferenceFactory.() -> Unit): M
     val builder = MaterialAlertDialogPreferenceFactory()
     builder.init()
     builder.onClickListener = {
-        val builder2 = MaterialAlertDialogBuilder(it, R.style.MaterialDialog)
+        val context = builder.contextWrapper(it)
+        val builder2 = MaterialAlertDialogBuilder(context, R.style.MaterialDialog)
         builder2.setTitle(builder.title)
         builder.materialAlertDialogBuilder.invoke(builder2)
         builder2.create().show()
@@ -85,14 +86,15 @@ fun uiEditTextPreference(init: EditPreferenceFactory.() -> Unit): UiChangeablePr
     val builder = EditPreferenceFactory()
     builder.init()
     builder.onClickListener = {
-        val builder2 = MaterialAlertDialogBuilder(it, R.style.MaterialDialog)
-        val inputLayout = TextInputLayout(it, null, R.style.MaterialDialog)
+        val context = builder.contextWrapper(it)
+        val builder2 = MaterialAlertDialogBuilder(context, R.style.MaterialDialog)
+        val inputLayout = TextInputLayout(context, null, R.style.MaterialDialog)
         inputLayout.layoutParams = LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
         builder.inputLayout.invoke(inputLayout)
-        val textInputEditText = TextInputEditText(it, null, R.style.MaterialDialog)
+        val textInputEditText = TextInputEditText(context, null, R.style.MaterialDialog)
         inputLayout.addView(
             textInputEditText,
             LinearLayout.LayoutParams(
