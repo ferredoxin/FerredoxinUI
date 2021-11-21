@@ -94,7 +94,7 @@ fun uiEditTextPreference(init: EditPreferenceFactory.() -> Unit): UiChangeablePr
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
         builder.inputLayout.invoke(inputLayout)
-        val textInputEditText = TextInputEditText(context, null, R.style.MaterialDialog)
+        val textInputEditText = TextInputEditText(context)
         inputLayout.addView(
             textInputEditText,
             LinearLayout.LayoutParams(
