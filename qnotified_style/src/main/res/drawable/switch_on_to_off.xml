@@ -1,0 +1,26 @@
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:drawable="@drawable/ic_toggle_on_24px">
+    <target android:name="path_3">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:propertyName="pathData"
+                    android:startOffset="40"
+                    android:duration="285"
+                    android:valueFrom="M 26 7 L 26 7 C 27.326 7 28.598 7.527 29.536 8.464 C 30.473 9.402 31 10.674 31 12 C 31 13.326 30.473 14.598 29.536 15.536 C 28.598 16.473 27.326 17 26 17 L 26 17 C 24.674 17 23.402 16.473 22.464 15.536 C 21.527 14.598 21 13.326 21 12 C 21 10.674 21.527 9.402 22.464 8.464 C 23.402 7.527 24.674 7 26 7"
+                    android:valueTo="M 7.5 10.5 L 12.5 10.5 C 12.898 10.5 13.279 10.658 13.561 10.939 C 13.842 11.221 14 11.602 14 12 C 14 12.398 13.842 12.779 13.561 13.061 C 13.279 13.342 12.898 13.5 12.5 13.5 L 7.5 13.5 C 7.102 13.5 6.721 13.342 6.439 13.061 C 6.158 12.779 6 12.398 6 12 C 6 11.602 6.158 11.221 6.439 10.939 C 6.721 10.658 7.102 10.5 7.5 10.5"
+                    android:valueType="pathType"
+                    android:interpolator="@android:anim/accelerate_decelerate_interpolator" />
+                <objectAnimator
+                    android:propertyName="fillColor"
+                    android:startOffset="100"
+                    android:duration="250"
+                    android:valueFrom="@color/SwitchOnColor"
+                    android:valueTo="@color/SwitchOffColor"
+                    android:valueType="colorType"
+                    android:interpolator="@android:interpolator/fast_out_slow_in" />
+            </set>
+        </aapt:attr>
+    </target>
+</animated-vector>

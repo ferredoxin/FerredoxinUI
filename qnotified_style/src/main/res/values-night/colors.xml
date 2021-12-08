@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="FirstTextColor">#FFFFFFFF</color>
+    <color name="SecondTextColor">#DEFFFFFF</color>
+    <color name="ThirdTextColor">#99FFFFFF</color>
+    <color name="WhiteTextColor">#FFFFFFFF</color>
+    <color name="DisableTextColor">#61FFFFFF</color>
+    <color name="BackgroundColor">#FF202124</color>
+    <color name="WhiteBackgroundColor">#FFFFFFFF</color>
+    <color name="DeleteBackgroundColor">#FFD93025</color>
+    <color name="ItemBackgroundColor">#FF303134</color>
+    <color name="ItemRightIconColor">#61FFFFFF</color>
+    <color name="ItemRightTextColor">#61FFFFFF</color>
+    <color name="ThemeColor">#FF82A8E7</color>
+    <color name="RippleColor">#FF3C4043</color>
+    <color name="LineColor">#FF4F5355</color>
+    <color name="SwitchLineColor">#FF4F5355</color>
+    <color name="SwitchOnColor">#FF82A8E7</color>
+    <color name="SwitchOffColor">#FF5F6368</color>
+    <color name="SwitchDisableColor">#FF404144</color>
+    <color name="SwitchDisableOnColor">#6182A8E7</color>
+    <color name="NullColor">#00000000</color>
+    <color name="IconClockColor">#9982A8E7</color>
+</resources>
