@@ -19,14 +19,22 @@ class MaiTungTMSettingFragment : Fragment(), TitleAble {
 
     private lateinit var uiScreen: UiScreen
     override lateinit var title: String
+    private lateinit var titleProviderCache: ResourceProvider<String>
+    override var titleProvider: ResourceProvider<String>
+        get() {
+            if (this::titleProviderCache.isInitialized) {
+                return titleProviderCache
+            } else {
+                return DirectResourceProvider(title)
+            }
+        }
+        set(value) {
+            titleProviderCache = value
+        }
     private lateinit var binding: ViewBinding
     private var viewCache: WeakReference<View>? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view = viewCache?.get()
         if (view != null) {
@@ -70,13 +78,13 @@ class MaiTungTMSettingFragment : Fragment(), TitleAble {
                 uiDescription is UiAboutItem -> {
                     val about = About(requireContext())
                     viewGroup.addView(about)
-                    about.setTitle(uiDescription.title)
+                    about.setTitle(uiDescription.titleProvider.getValue(requireContext()))
                     about.setIcon(uiDescription.icon.invoke(requireContext()))
                 }
                 uiDescription is UiCategory -> {
                     if (!uiDescription.noTitle) {
                         viewGroup.addView(Subtitle(requireContext()).apply {
-                            setTitle(uiDescription.name)
+                            setTitle(uiDescription.nameProvider.getValue(requireContext()))
                         })
                     }
                     if (uiDescription.contains.isNotEmpty()) {
@@ -89,8 +97,8 @@ class MaiTungTMSettingFragment : Fragment(), TitleAble {
                     when (uiDescription) {
                         is UiClickableSwitchPreference -> {
                             viewGroup.addView(ClickableSwitchItem(requireContext()).apply {
-                                title = uiDescription.title
-                                summary = uiDescription.summary
+                                title = uiDescription.titleProvider.getValue(requireContext())
+                                summary = uiDescription.summaryProvider.getValue(requireContext())
                                 onValueChangedListener = {
                                     uiDescription.value.value = it
                                 }
@@ -103,8 +111,8 @@ class MaiTungTMSettingFragment : Fragment(), TitleAble {
                         }
                         is UiSwitchPreference -> {
                             viewGroup.addView(SwitchItem(requireContext()).apply {
-                                title = uiDescription.title
-                                summary = uiDescription.summary
+                                title = uiDescription.titleProvider.getValue(requireContext())
+                                summary = uiDescription.summaryProvider.getValue(requireContext())
                                 onValueChangedListener = {
                                     uiDescription.value.value = it
                                 }
@@ -116,8 +124,8 @@ class MaiTungTMSettingFragment : Fragment(), TitleAble {
                         }
                         is UiChangeablePreference<*> -> {
                             viewGroup.addView(ClickableItem(requireContext()).apply {
-                                title = uiDescription.title
-                                summary = uiDescription.summary
+                                title = uiDescription.titleProvider.getValue(requireContext())
+                                summary = uiDescription.summaryProvider.getValue(requireContext())
                                 enable = uiDescription.valid
                                 observeStateFlow(uiDescription.value) {
                                     value = it?.toString()
@@ -126,8 +134,8 @@ class MaiTungTMSettingFragment : Fragment(), TitleAble {
                         }
                         is UiPreference -> {
                             viewGroup.addView(ClickableItem(requireContext()).apply {
-                                title = uiDescription.title
-                                summary = uiDescription.summary
+                                title = uiDescription.titleProvider.getValue(requireContext())
+                                summary = uiDescription.summaryProvider.getValue(requireContext())
                                 clickAble = uiDescription.clickAble
                                 subSummary = uiDescription.subSummary
                                 setOnClickListener(getOnClickListener(uiDescription.onClickListener, uiDescription.title))

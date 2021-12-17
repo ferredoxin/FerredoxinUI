@@ -26,7 +26,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 expect sealed interface UiPreference : UiDescription {
     val title: String
+    val titleProvider: ResourceProvider<String>
     val summary: String?
+    val summaryProvider: ResourceProvider<String?>
     val clickAble: Boolean
     val subSummary: String?
     var valid: Boolean

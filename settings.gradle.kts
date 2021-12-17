@@ -13,7 +13,7 @@ dependencyResolutionManagement {
 rootProject.name = "FerredoxinUI"
 
 
-include(":android")
+include(":androidDemo")
 include(":desktop")
 include(":common")
 include(":qnotified_style")

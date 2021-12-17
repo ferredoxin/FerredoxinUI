@@ -5,20 +5,16 @@ import org.ferredoxin.ferredoxinui.android.fragment.DemoFragment
 import org.ferredoxin.ferredoxinui.android.fragment.DemoViewPagerFragment
 import org.ferredoxin.ferredoxinui.common.base.*
 
-object UiTable : UiScreen {
-    override var name: String = "QNotified"
-    override var summary: String? = null
-    override var contains: UiMap = linkedMapOf(
-        uiCategory {
-            name = "模块设置"
-            contains = linkedMapOf(
-                uiClickableItem {
-                    title = "净化功能"
-                    onClickListener = ClickToNewPages(DemoViewPagerFragment)
-                },
-                uiClickableItem {
-                    title = "增强功能"
-                    onClickListener = ClickToNewSetting(DemoViewPagerFragment[0].second)
+val UiTable = uiScreen {
+    name = "QNotified"
+    contains = linkedMapOf(uiCategory {
+        name = "模块设置"
+        contains = linkedMapOf(uiClickableItem {
+            title = "净化功能"
+            onClickListener = ClickToNewPages(DemoViewPagerFragment)
+        }, uiClickableItem {
+            title = "增强功能"
+            onClickListener = ClickToNewSetting(DemoViewPagerFragment[0].second)
                 },
                 uiClickableItem {
                     title = "辅助功能"

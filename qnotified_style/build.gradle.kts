@@ -3,6 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
+val java_version = JavaVersion.VERSION_11
+
 android {
     compileSdk = 31
 

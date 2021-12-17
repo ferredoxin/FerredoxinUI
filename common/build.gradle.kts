@@ -9,6 +9,8 @@ plugins {
 group = "org.ferredoxin.ferredoxinui"
 version = "1.0"
 
+val java_version = JavaVersion.VERSION_11
+
 kotlin {
     android {
         compilations.all {

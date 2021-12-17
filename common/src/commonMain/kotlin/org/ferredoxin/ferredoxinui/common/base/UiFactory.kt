@@ -4,14 +4,52 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 class UiCategoryFactory : UiCategory {
     override var name: String = ""
+    private lateinit var nameProviderCache: ResourceProvider<String>
+    override var nameProvider: ResourceProvider<String>
+        get() {
+            if (this::nameProviderCache.isInitialized) {
+                return nameProviderCache
+            } else {
+                return DirectResourceProvider(name)
+            }
+        }
+        set(value) {
+            nameProviderCache = value
+        }
     override var contains: UiMap = linkedMapOf()
     override var noTitle: Boolean = false
 }
 
 class UiScreenFactory : UiScreen {
-    override var summary: String? = null
-    override lateinit var name: String
+    override var name: String = ""
+    private lateinit var nameProviderCache: ResourceProvider<String>
+    override var nameProvider: ResourceProvider<String>
+        get() {
+            if (this::nameProviderCache.isInitialized) {
+                return nameProviderCache
+            } else {
+                return DirectResourceProvider(name)
+            }
+        }
+        set(value) {
+            nameProviderCache = value
+        }
+    var summary: String? = null
+    private lateinit var summaryProviderCache: ResourceProvider<String?>
+    override var summaryProvider: ResourceProvider<String?>
+        get() {
+            if (this::summaryProviderCache.isInitialized) {
+                return summaryProviderCache
+            } else {
+                return DirectResourceProvider(name)
+            }
+        }
+        set(value) {
+            summaryProviderCache = value
+        }
     override var contains: UiMap = linkedMapOf()
+    override var onClickHook: (UiDescription) -> Unit = {}
+    override var onValueChangeHook: (UiDescription) -> Unit = {}
 }
 
 expect open class UiClickableItemFactory() : UiPreference {

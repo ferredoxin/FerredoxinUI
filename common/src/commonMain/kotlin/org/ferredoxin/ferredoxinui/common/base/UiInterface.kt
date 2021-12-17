@@ -6,12 +6,15 @@ interface UiDescription
 
 sealed interface UiGroup : UiDescription {
     val name: String
+    val nameProvider: ResourceProvider<String>
     val contains: UiMap
 }
 
 interface UiScreen : UiGroup {
-    val summary: String?
-        get() = null
+    val summaryProvider: ResourceProvider<String?>
+        get() = DirectResourceProvider(null)
+    val onClickHook: (UiDescription) -> Unit
+    val onValueChangeHook: (UiDescription) -> Unit
 }
 
 interface UiCategory : UiGroup {

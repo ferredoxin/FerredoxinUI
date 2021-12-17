@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import org.ferredoxin.ferredoxinui.common.base.DirectResourceProvider
+import org.ferredoxin.ferredoxinui.common.base.ResourceProvider
 import org.ferredoxin.ferredoxinui.common.base.TitleAble
 import org.ferredoxin.ferredoxinui.common.base.ViewMap
 import org.ferredoxin.ferredoxinui.qnotified_style.R
@@ -24,11 +26,20 @@ class ViewPagerFragment : Fragment(), TitleAble {
     private lateinit var viewMap: ViewMap
     override lateinit var title: String
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    private lateinit var titleProviderCache: ResourceProvider<String>
+    override var titleProvider: ResourceProvider<String>
+        get() {
+            if (this::titleProviderCache.isInitialized) {
+                return titleProviderCache
+            } else {
+                return DirectResourceProvider(title)
+            }
+        }
+        set(value) {
+            titleProviderCache = value
+        }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (!::viewMap.isInitialized) {
             requireActivity().recreate()
             return null

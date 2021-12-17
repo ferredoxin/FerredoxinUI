@@ -15,6 +15,30 @@ actual open class UiClickableItemFactory : UiPreference {
     actual override var clickAble: Boolean = true
     actual override var subSummary: String? = null
     override var onClickListener: (Activity) -> Boolean = { true }
+    private lateinit var titleProviderCache: ResourceProvider<String>
+    override var titleProvider: ResourceProvider<String>
+        get() {
+            if (this::titleProviderCache.isInitialized) {
+                return titleProviderCache
+            } else {
+                return DirectResourceProvider(title)
+            }
+        }
+        set(value) {
+            titleProviderCache = value
+        }
+    private lateinit var summaryProviderCache: ResourceProvider<String?>
+    override var summaryProvider: ResourceProvider<String?>
+        get() {
+            if (this::summaryProviderCache.isInitialized) {
+                return summaryProviderCache
+            } else {
+                return DirectResourceProvider(summary)
+            }
+        }
+        set(value) {
+            summaryProviderCache = value
+        }
 }
 
 actual open class UiChangeableItemFactory<T> : UiChangeablePreference<T>, UiClickableItemFactory() {
@@ -39,6 +63,30 @@ class MaterialAlertDialogPreferenceFactory : UiChangeablePreference<String>, Con
     override val value: MutableStateFlow<String?> = MutableStateFlow(null)
     override var contextWrapper: (Context) -> Context = { it }
     var materialAlertDialogBuilder: MaterialAlertDialogBuilder.() -> Unit = {}
+    private lateinit var titleProviderCache: ResourceProvider<String>
+    override var titleProvider: ResourceProvider<String>
+        get() {
+            if (this::titleProviderCache.isInitialized) {
+                return titleProviderCache
+            } else {
+                return DirectResourceProvider(title)
+            }
+        }
+        set(value) {
+            titleProviderCache = value
+        }
+    private lateinit var summaryProviderCache: ResourceProvider<String?>
+    override var summaryProvider: ResourceProvider<String?>
+        get() {
+            if (this::summaryProviderCache.isInitialized) {
+                return summaryProviderCache
+            } else {
+                return DirectResourceProvider(summary)
+            }
+        }
+        set(value) {
+            summaryProviderCache = value
+        }
 }
 
 class EditPreferenceFactory : UiChangeablePreference<String>, ContextWrapper {
@@ -52,9 +100,45 @@ class EditPreferenceFactory : UiChangeablePreference<String>, ContextWrapper {
     var inputLayout: TextInputLayout.() -> Unit = {}
     override var contextWrapper: (Context) -> Context = { it }
     var textInputEditText: TextInputEditText.() -> Unit = {}
+    private lateinit var titleProviderCache: ResourceProvider<String>
+    override var titleProvider: ResourceProvider<String>
+        get() {
+            if (this::titleProviderCache.isInitialized) {
+                return titleProviderCache
+            } else {
+                return DirectResourceProvider(title)
+            }
+        }
+        set(value) {
+            titleProviderCache = value
+        }
+    private lateinit var summaryProviderCache: ResourceProvider<String?>
+    override var summaryProvider: ResourceProvider<String?>
+        get() {
+            if (this::summaryProviderCache.isInitialized) {
+                return summaryProviderCache
+            } else {
+                return DirectResourceProvider(summary)
+            }
+        }
+        set(value) {
+            summaryProviderCache = value
+        }
 }
 
 actual class UiAboutItemFactory : UiAboutItem {
     override lateinit var title: String
     override lateinit var icon: (Context) -> Drawable
+    private lateinit var titleProviderCache: ResourceProvider<String>
+    override var titleProvider: ResourceProvider<String>
+        get() {
+            if (this::titleProviderCache.isInitialized) {
+                return titleProviderCache
+            } else {
+                return DirectResourceProvider(title)
+            }
+        }
+        set(value) {
+            titleProviderCache = value
+        }
 }

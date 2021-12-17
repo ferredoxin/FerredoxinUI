@@ -31,4 +31,6 @@ actual sealed interface UiPreference : UiDescription {
     actual val clickAble: Boolean
     actual val subSummary: String?
     val onClickListener: (Activity) -> Boolean
+    actual val titleProvider: ResourceProvider<String>
+    actual val summaryProvider: ResourceProvider<String?>
 }
