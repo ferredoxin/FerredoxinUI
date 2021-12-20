@@ -127,6 +127,7 @@ class MaiTungTMSettingFragment : Fragment(), TitleAble {
                                 title = uiDescription.titleProvider.getValue(requireContext())
                                 summary = uiDescription.summaryProvider.getValue(requireContext())
                                 enable = uiDescription.valid
+                                setOnClickListener(getOnClickListener(uiDescription.onClickListener, uiDescription.title))
                                 observeStateFlow(uiDescription.value) {
                                     value = it?.toString()
                                 }
