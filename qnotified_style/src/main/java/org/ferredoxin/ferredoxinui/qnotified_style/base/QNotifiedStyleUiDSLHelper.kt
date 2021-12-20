@@ -30,8 +30,8 @@ fun uiEditTextPreference(init: EditPreferenceFactory.() -> Unit): Pair<String, U
     builder.init()
     builder.onClickListener = {
         val context = builder.contextWrapper(it)
-        val builder2 = MaterialAlertDialogBuilder(context)
-        val inputLayout = TextInputLayout(context, null)
+        val builder2 = MaterialAlertDialogBuilder(context, R.style.MaterialDialog)
+        val inputLayout = TextInputLayout(context, null, builder.theme)
         inputLayout.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         builder.inputLayout.invoke(inputLayout)
         val textInputEditText = TextInputEditText(context, null)

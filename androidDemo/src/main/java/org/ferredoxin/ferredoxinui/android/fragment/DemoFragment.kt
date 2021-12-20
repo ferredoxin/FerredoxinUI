@@ -21,6 +21,10 @@ val DemoFragment: UiScreen = uiScreen {
                 }
             }, uiEditTextPreference {
                 title = "文本测试"
+                inputLayout = {
+                    hint = "一个提示"
+                    helperText = "帮助文本"
+                }
             }, uiClickableSwitchItem {
                 title = "开关带二级界面"
                 summary = "辅助文字"

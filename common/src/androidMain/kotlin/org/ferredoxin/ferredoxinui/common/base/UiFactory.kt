@@ -96,6 +96,7 @@ class EditPreferenceFactory : UiChangeablePreference<String>, ContextWrapper {
     override var valid: Boolean = true
     override var clickAble: Boolean = true
     override var subSummary: String? = null
+    var theme = com.google.android.material.R.style.Widget_MaterialComponents_TextInputLayout_FilledBox
     override lateinit var onClickListener: (Activity) -> Boolean
     var inputLayout: TextInputLayout.() -> Unit = {}
     override var contextWrapper: (Context) -> Context = { it }
