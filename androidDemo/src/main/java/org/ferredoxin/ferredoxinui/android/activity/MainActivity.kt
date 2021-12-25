@@ -1,13 +1,14 @@
 package org.ferredoxin.ferredoxinui.android.activity
 
-import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceFragmentCompat
 import org.ferredoxin.ferredoxinui.android.UiTable
+import org.ferredoxin.ferredoxinui.common.activity.MaterialSettingActivity
 import org.ferredoxin.ferredoxinui.common.base.TitleAble
-import org.ferredoxin.ferredoxinui.qnotified_style.activity.MaiTungTMStyleActivity
-import org.ferredoxin.ferredoxinui.qnotified_style.fragment.MaiTungTMSettingFragment
+import org.ferredoxin.ferredoxinui.common.fragment.MaterialSettingFragment
 
-class MainActivity<T> : MaiTungTMStyleActivity<T>() where T : Fragment, T : TitleAble {
+class MainActivity<T> : MaterialSettingActivity<T>() where T : PreferenceFragmentCompat, T : TitleAble {
 
-    override val fragment: T = MaiTungTMSettingFragment().setUiScreen(UiTable.second) as T
+    override val theme: Int = com.google.android.material.R.style.Theme_Material3_DayNight_NoActionBar
+    override val fragment: T = MaterialSettingFragment().setUiScreen(UiTable.second) as T
 
 }

@@ -36,11 +36,15 @@ kotlin {
                 api("androidx.activity:activity-compose:1.4.0")
                 api("androidx.appcompat:appcompat:1.4.0")
                 api("androidx.core:core-ktx:1.7.0")
-                api("com.google.android.material:material:1.4.0")
+                api("com.google.android.material:material:1.6.0-alpha01")
 
                 val lifecycleVersion = "2.4.0-alpha03"
                 api("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
                 api("androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion")
+
+                val preference_version = "1.1.1"
+                api("androidx.preference:preference:$preference_version")
+                api("androidx.preference:preference-ktx:$preference_version")
             }
         }
         val desktopMain by getting {
