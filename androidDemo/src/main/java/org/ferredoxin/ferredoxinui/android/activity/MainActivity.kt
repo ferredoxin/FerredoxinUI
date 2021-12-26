@@ -8,7 +8,7 @@ import org.ferredoxin.ferredoxinui.common.fragment.MaterialSettingFragment
 
 class MainActivity<T> : MaterialSettingActivity<T>() where T : PreferenceFragmentCompat, T : TitleAble {
 
-    override val theme: Int = com.google.android.material.R.style.Theme_Material3_DayNight_NoActionBar
+    override val theme = MaterialTheme.You
     override val fragment: T = MaterialSettingFragment().setUiScreen(UiTable.second) as T
 
 }

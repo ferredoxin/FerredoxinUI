@@ -1,6 +1,8 @@
 package org.ferredoxin.ferredoxinui.common.activity
 
 import android.os.Bundle
+import androidx.annotation.LayoutRes
+import androidx.annotation.StyleRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -15,15 +17,23 @@ import java.io.*
 
 abstract class MaterialSettingActivity<T> : AppCompatActivity() where T : PreferenceFragmentCompat, T : TitleAble {
 
-    abstract val theme: Int
+    abstract val theme: MaterialTheme
     abstract val fragment: T
 
     private lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(theme)
+        @StyleRes val themeInt: Int = when (theme) {
+            MaterialTheme.Classic -> com.google.android.material.R.style.Theme_MaterialComponents_DayNight_NoActionBar
+            MaterialTheme.You -> com.google.android.material.R.style.Theme_Material3_DayNight_NoActionBar
+        }
+        setTheme(themeInt)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_material_setting)
+        @LayoutRes val layoutInt: Int = when (theme) {
+            MaterialTheme.Classic -> R.layout.activity_material_setting
+            MaterialTheme.You -> R.layout.activity_material3_setting
+        }
+        setContentView(layoutInt)
         toolbar = findViewById(R.id.toolbar)
         changeFragment(fragment)
     }
@@ -61,6 +71,10 @@ abstract class MaterialSettingActivity<T> : AppCompatActivity() where T : Prefer
     override fun recreate() {
         finish()
         startActivity(intent)
+    }
+
+    enum class MaterialTheme {
+        Classic, You
     }
 
 }
