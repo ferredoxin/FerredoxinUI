@@ -34,12 +34,19 @@ class MaterialSettingFragment : PreferenceFragmentCompat(), TitleAble {
             when {
                 uiDescription is UiCategory -> {
                     val preferenceCategory = PreferenceCategory(requireContext()).apply {
-                        title = uiDescription.name
+                        title = uiDescription.nameProvider.getValue(requireContext())
                     }
                     preferenceGroup.addPreference(preferenceCategory)
                     if (uiDescription.contains.isNotEmpty()) {
                         addViewInUiGroup(uiDescription, preferenceCategory)
                     }
+                }
+                uiDescription is UiScreen -> {
+                    preferenceGroup.addPreference(Preference(requireContext()).apply {
+                        title = uiDescription.nameProvider.getValue(requireContext())
+                        summary = uiDescription.summaryProvider.getValue(requireContext())
+                        onPreferenceClickListener = getOnClickListener(ClickToNewSetting(uiDescription), uiDescription.name)
+                    })
                 }
                 uiDescription is UiPreference -> {
                     when (uiDescription) {
