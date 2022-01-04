@@ -40,7 +40,7 @@ abstract class MaterialSettingActivity<T> : AppCompatActivity() where T : Prefer
 
     fun <T> changeFragment(fragment: T) where T : Fragment, T : TitleAble {
         supportFragmentManager.beginTransaction()
-            .setCustomAnimations(R.anim.slide_left_in, R.anim.slide_right_out, R.anim.slide_right_in, R.anim.slide_left_out)
+            .setCustomAnimations(R.anim.slide_right_in, R.anim.slide_left_out, R.anim.slide_left_in, R.anim.slide_right_out)
             .replace(R.id.content_frame, fragment).addToBackStack(fragment.title).commit()
         toolbar.title = fragment.title
     }
@@ -56,7 +56,7 @@ abstract class MaterialSettingActivity<T> : AppCompatActivity() where T : Prefer
         }.second
         val rootFragment = MaterialSettingFragment().setUiScreen(uiScreen)
         supportFragmentManager.beginTransaction()
-            .setCustomAnimations(R.anim.slide_left_in, R.anim.slide_right_out, R.anim.slide_right_in, R.anim.slide_left_out)
+            .setCustomAnimations(R.anim.slide_right_in, R.anim.slide_left_out, R.anim.slide_left_in, R.anim.slide_right_out)
             .replace(R.id.content_frame, rootFragment).addToBackStack(uiScreen.name).commit()
         toolbar.title = uiScreen.name
     }
